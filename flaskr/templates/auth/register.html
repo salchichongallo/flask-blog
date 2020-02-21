@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <h1 class="px-8 pt-4 text-xl font-medium">{% block title %}Register{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+    <form method="POST" class="px-8 pb-8">
+        <label for="username">Username</label>
+        <input name="username" id="username" required class="block w-full px-2 py-1 border rounded-sm" />
+        <label for="password" class="block mt-4">Password</label>
+        <input name="password" id="password" type="password" required class="block w-full px-2 py-1 border rounded-sm" />
+        <button type="submit" class="block mt-5 w-full p-3 rounded font-bold bg-blue-500 hover:bg-blue-600 text-white">Register</button>
+    </form>
+{% endblock %}
