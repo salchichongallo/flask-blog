@@ -40,6 +40,7 @@ def register():
         username = request.form['username']
         password = request.form['password']
         db = get_db()
+        error = None
 
         if not username:
             error = 'Username is required.'
@@ -50,7 +51,7 @@ def register():
         ).fetchone() is not None:
             error = f'User {username} is already registered.'
 
-        if error is not None:
+        if error is None:
             db.execute(
                 'INSERT INTO user (username, password) VALUES (?, ?)',
                 (username, generate_password_hash(password)),
