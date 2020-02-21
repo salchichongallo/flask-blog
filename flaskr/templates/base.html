@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}{% endblock %} - Flaskr</title>
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet" />
+</head>
+<body class="sm:mt-8 md:mt-12 lg:mt-20" style="background-color: #fafafa">
+    <div class="max-w-lg mx-auto">
+        <nav class="flex items-center justify-between p-4 mb-2 rounded-t-md bg-white shadow">
+            <h1 class="text-xl font-bold">Flaskr</h1>
+            <ul class="flex">
+                {% if g.user %}
+                    <li class="pr-3 border-r"><span class="font-medium">{{ g.user['username'] }}</span></li>
+                    <li class="ml-3"><a href="{{ url_for('auth.logout') }}" class="no-underline hover:underline text-blue-500">Log out</a></li>
+                    {% else %}
+                    <li class="pr-3 border-r"><a href="{{ url_for('auth.login') }}" class="no-underline hover:underline text-blue-500">Log In</a></li>
+                    <li class="ml-3"><a href="{{ url_for('auth.register') }}" class="no-underline hover:underline text-blue-500">Register</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+
+        {% for message in get_flashed_messages() %}
+            <div class="shadow my-2 p-4 rounded-sm bg-white bg-blue-100 text-blue-600 font-bold">{{ message }}</div>
+        {% endfor %}
+
+        <section class="sm:rounded-b-md bg-white shadow-md">
+            <header class="mb-4">
+                {% block header %}{% endblock %}
+            </header>
+            {% block content %}{% endblock %}
+        </section>
+    </div>
+</body>
+</html>
