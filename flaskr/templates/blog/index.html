@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <div class="flex items-center justify-between px-8 py-4">
+        <h1 class="text-xl font-medium">{% block title %}Posts{% endblock %}</h1>
+        {% if g.user %}
+            <a href="{{ url_for('blog.create') }}" class="no-underline hover:underline text-blue-500">New</a>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block content %}
+    {% for post in posts %}
+        <article class="px-8 pb-6">
+            <header class="flex justify-between mb-1">
+                <div>
+                    <h1>{{ post['title'] }}</h1>
+                    <div class="text-sm text-gray-500">by <span class="italic">{{ post['username'] }}</span> on {{ post['created'].strftime('%Y-%m-%d') }}</div>
+                </div>
+                {% if g.user['id'] == post['author_id'] %}
+                    <a href="{{ url_for('blog.update', id=post['id']) }}" class="no-underline hover:underline text-blue-500 self-start">Edit</a>
+                {% endif %}
+            </header>
+            <p>{{ post['body'] }}</p>
+        </article>
+    {% endfor %}
+{% endblock %}

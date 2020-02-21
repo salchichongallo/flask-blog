@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <div class="px-8 pt-4 mb-4 flex items-end justify-between">
+        <h1 class="text-xl font-medium">
+            {% block title %}Edit "{{ post['title'] }}"{% endblock %}
+        </h1>
+        <form action="{{ url_for('blog.delete', id=post['id']) }}" method="POST">
+            <button onclick="return confirm('Are you sure?');" class="py-1 px-2 text-sm rounded font-bold hover:bg-red-100 text-red-500">Delete</button>
+        </form>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <form method="POST" class="px-8 pb-8">
+        <label for="title">Title</label>
+        <input name="title" value="{{ request.form['title'] or post['title'] }}" id="title" required class="block w-full px-2 py-1 border rounded-sm" />
+        <label for="body" class="block mt-4">Body</label>
+        <textarea name="body" id="body" class="block w-full px-2 py-1 border rounded-sm" required>{{ request.form['body'] or post['body'] }}</textarea>
+        <div class="flex mt-5">
+            <a href="{{ url_for('blog.index') }}" class="flex-1 p-3 mr-1 rounded font-bold hover:bg-gray-100 text-blue-500 text-center">Cancel</a>
+            <button type="submit" class="flex-1 p-3 ml-1 rounded font-bold bg-blue-500 hover:bg-blue-600 text-white">Save</button>
+        </div>
+    </form>
+    <hr />
+{% endblock %}

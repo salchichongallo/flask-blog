@@ -26,9 +26,7 @@
         {% endfor %}
 
         <section class="sm:rounded-b-md bg-white shadow-md">
-            <header class="mb-4">
-                {% block header %}{% endblock %}
-            </header>
+            <header>{% block header %}{% endblock %}</header>
             {% block content %}{% endblock %}
         </section>
     </div>
